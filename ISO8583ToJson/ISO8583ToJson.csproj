@@ -55,7 +55,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\ISO8583.cs" />
     <Compile Include="PaymentGateway\Controllers\Unionpay.cs" />
     <Compile Include="PaymentGateway\Enums\ProcessingCode.cs" />
     <Compile Include="PaymentGateway\Models\SaleRequest.cs" />
@@ -90,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ISO8583\ISO8583.csproj">
+      <Project>{df7836b8-2dcc-44d0-b655-2d5bc35dfa2e}</Project>
+      <Name>ISO8583</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

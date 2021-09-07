@@ -1,5 +1,4 @@
-﻿using ISO8583ToJson.Models;
-using ISO8583ToJson.PaymentGateway.Enums;
+﻿using ISO8583ToJson.PaymentGateway.Enums;
 using ISO8583ToJson.PaymentGateway.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,8 @@ namespace ISO8583ToJson.PaymentGateway.Controllers
 
         public void Sale()
         {
+            ISO8583.Model model = new ISO8583.Model();
+
             DateTime transactionUTCDatetime = DateTime.UtcNow;
             DateTime transactionLocalDatetime = DateTime.Now;
             string nonce = Common.GetNonce();

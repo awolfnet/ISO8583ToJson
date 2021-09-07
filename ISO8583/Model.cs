@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ISO8583ToJson.Models
+namespace ISO8583
 {
 
-    public class ISO8583 : Dictionary<String, String>
+    public class Model : Dictionary<String, String>
     {
         private byte[] _bitmap = new byte[129];
 
@@ -13,7 +15,7 @@ namespace ISO8583ToJson.Models
 
         private MessageTypeIndicator _messageTypeIndicator;
 
-        public ISO8583()
+        public Model()
         {
 
         }
@@ -169,142 +171,9 @@ namespace ISO8583ToJson.Models
             return GetFieldValue(Field.ResponseCode);
         }
 
-        public enum Field
-        {
-            MessageTypeIdentifier = 0,
-            Bitmap = 1,
-            ProcessingCode = 3,
-            TransmissionDatetime = 7,
-            SystemTraceAuditNumber = 11,
-            LocalTransactionTime = 12,
-            LocalTransactionDate = 13,
-            MerchantCategoryCode = 18,
-            PointOfServiceConditionCode = 25,
-            RetrievalReferenceNumber = 37,
-            ResponseCode = 39,
-            CardAcceptorTerminalIdentification = 41,
-            CardAcceptorIdentificationCode = 42,
-            AdditionalData = 48,
-            CurrencyCode = 49,
-            AdditionalAmounts = 54,
-            OrderNumber = 62,
-            ReservedField_63 = 63,
-            TotalAmountOfDebits = 88,
-            TransactionDescription = 104
-        }
 
-        public static class FieldType
-        {
-            /// <summary>
-            /// Fixed length field of 2 digits
-            /// </summary>
-            public const string n2 = "00";
-
-            /// <summary>
-            /// Fixed length field of 4 digits
-            /// </summary>
-            public const string n4 = "0000";
-
-            /// <summary>
-            /// Fixed length field of 4 digits Month and Day
-            /// </summary>
-            public const string n4_date = "MMdd";
-
-            /// <summary>
-            /// Fixed length field of 6 digits
-            /// </summary>
-            public const string n6 = "000000";
-
-            /// <summary>
-            /// Fixed length field of 6 digits Hours Minutes and Seconds
-            /// </summary>
-            public const string n6_time = "HHmmss";
-
-            /// <summary>
-            /// Fixed length field of 10 digits date and time
-            /// </summary>
-            public const string n10_datetime = "MMddHHmmss";
-
-            /// <summary>
-            /// Fixed length field of 12 digits
-            /// </summary>
-            public const string n12 = "000000000000";
-        }
-
-        public class MessageTypeIndicator
-        {
-            public enum Version
-            {
-                ISO8583_1987 = 0000,
-                ISO8583_1993 = 1000,
-                ISO8583_2003 = 2000,
-
-            }
-
-            public enum MessageClass
-            {
-                Authorization = 100,
-                Financial = 200,
-                FileActions = 300,
-                ReversalAndChargeback = 400,
-                Reconciliation = 500,
-                Administrative = 600,
-                FeeCollection = 700,
-                NetworkManagement = 800
-            }
-
-            public enum MessageFunction
-            {
-                Request = 00,
-                RequestResponse = 10,
-                Advice = 20,
-                AdviceResponse = 30,
-                Notification = 40,
-                NotificationAcknowledgement = 50,
-                Instruction = 60,
-                InstructionAcknowledgement = 70,
-
-            }
-
-            public enum MessageOrigin
-            {
-                Acquirer = 0,
-                AcquirerRepeat = 1,
-                Issuer = 2,
-                IssuerRepeat = 3,
-                Other = 4,
-                OtherRepeat = 5
-            }
-
-            protected Version _version;
-            protected MessageClass _messageClass;
-            protected MessageFunction _messageFunction;
-            protected MessageOrigin _messageOrigin;
-
-            public MessageTypeIndicator(Version version, MessageClass messageClass, MessageFunction messageFunction, MessageOrigin messageOrigin)
-            {
-                _version = version;
-                _messageClass = messageClass;
-                _messageFunction = messageFunction;
-                _messageOrigin = messageOrigin;
-
-            }
-
-            public override string ToString()
-            {
-                int mit = (int)_version + (int)_messageClass + (int)_messageFunction + (int)_messageOrigin;
-                return mit.ToString(FieldType.n4);
-            }
-
-        }
 
     }
 
-    public static class FieldExtensions
-    {
-        public static string FieldNumber(this ISO8583.Field fieldName)
-        {
-            return ((int)fieldName).ToString();
-        }
-    }
+
 }
