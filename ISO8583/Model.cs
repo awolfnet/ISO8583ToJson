@@ -17,7 +17,12 @@ namespace ISO8583
 
         public Model()
         {
+            
+        }
 
+        public Model(MessageTypeIndicator messageType)
+        {
+            SetMessageTypeIdentifier(messageType);
         }
 
         protected void SetMessageTypeIdentifier(MessageTypeIndicator messageType)
@@ -29,7 +34,15 @@ namespace ISO8583
         protected void SetFieldValue(Field fieldName, string value)
         {
             int field = (int)fieldName;
-            Add(fieldName.FieldNumber(), value);
+            string fieldNumber = fieldName.FieldNumber();
+            if (ContainsKey(fieldNumber))
+            {
+                this[fieldNumber] = value;
+            }else
+            {
+                Add(fieldNumber, value);
+            }
+            
 
             _bitmap[field] = 1;
             if (field > 64)
@@ -52,7 +65,6 @@ namespace ISO8583
         {
             string bitmap = GetBitmap().ToLower();
             Add(Field.Bitmap.FieldNumber(), bitmap);
-            //Can be replaced with your own json util.
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(this);
             return json;
         }
@@ -85,7 +97,6 @@ namespace ISO8583
         public void SetProcessingCode(int code, string format)
         {
             SetFieldValue(Field.ProcessingCode, code.ToString(format));
-
         }
 
         public void SetSystemTraceAuditNumber(int number, string format)
@@ -170,9 +181,6 @@ namespace ISO8583
         {
             return GetFieldValue(Field.ResponseCode);
         }
-
-
-
     }
 
 

@@ -8,7 +8,7 @@ namespace ISO8583
 {
     public static class FieldExtensions
     {
-        public static string FieldNumber(this ISO8583.Field fieldName)
+        public static string FieldNumber(this Field fieldName)
         {
             return ((int)fieldName).ToString();
         }

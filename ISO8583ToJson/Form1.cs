@@ -1,5 +1,4 @@
-﻿using ISO8583ToJson.Models;
-using ISO8583ToJson.PaymentGateway.Models;
+﻿using ISO8583ToJson.PaymentGateway.Models;
 using System;
 using System.Windows.Forms;
 
@@ -19,7 +18,9 @@ namespace ISO8583ToJson
 
         private void button1_Click(object sender, EventArgs e)
         {
+            PaymentGateway.Controllers.Unionpay unionpay = new PaymentGateway.Controllers.Unionpay();
 
+            unionpay.Sale();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using ISO8583ToJson.Models;
+﻿using ISO8583;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ISO8583ToJson.PaymentGateway.Models
 {
-    public class VoidRequest : ISO8583
+    public class VoidRequest : ISO8583.Model
     {
         public VoidRequest()
         {
